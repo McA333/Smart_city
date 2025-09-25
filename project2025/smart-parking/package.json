@@ -1,7 +1,13 @@
 {
-  "name": "smart-parking",
-  "main": "expo-router/entry",
+  "name": "smart-parking-backend",
   "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "private": true,
+  "description": "This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "scripts": {
     "start": "node server.js",
     "reset-project": "node ./scripts/reset-project.js",
@@ -47,10 +53,5 @@
     "eslint": "^9.25.0",
     "eslint-config-expo": "~10.0.0",
     "typescript": "~5.9.2"
-  },
-  "private": true,
-  "description": "This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).",
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  }
 }

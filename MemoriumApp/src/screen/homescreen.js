@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 export default function HomeScreen({ navigation }) {
   return (
     <LinearGradient
-      colors={['#ffffff', '#e8f0ff']}   // dégradé doux blanc -> bleu clair
+      colors={['#ffffff', '#e8f0ff']}  
       style={styles.container}
     >
       {/* Zone centrale : titre + sous-titre + bouton */}
@@ -38,17 +38,17 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     backgroundColor: '#fff',
-    justifyContent: 'space-between',  // espace entre centre et footer
+    justifyContent: 'space-between',  
   },
   centerBlock: {
     flex: 1,
-    justifyContent: 'center',         // centre verticalement tout le bloc
-    alignItems: 'center',             // centre horizontalement
+    justifyContent: 'center',   
+    alignItems: 'center',             
   },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#0000FF',                 // bleu vif demandé
+    color: '#0000FF',             
     textAlign: 'center',
     marginBottom: 12,
   },
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#4a6572',
     textAlign: 'center',
-    marginBottom: 40,                 // espace entre texte et bouton
+    marginBottom: 40,                
     paddingHorizontal: 10,
   },
   button: {

@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
-  TextInput,
-  FlatList,
   StyleSheet,
   ActivityIndicator,
+  TextInput,
+  FlatList,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import { fetchParkings } from '../api/parkings';
+import { fetchParkings } from '../api/fetchParkings';
+
+const { height } = Dimensions.get('window');
 
 export default function ParkingMapScreen({ navigation }) {
   const [parkings, setParkings] = useState([]);
@@ -31,46 +34,45 @@ export default function ParkingMapScreen({ navigation }) {
     (p.name || '').toLowerCase().includes(search.toLowerCase())
   );
 
-  const getMarkerColor = (available) => {
-    if (available > 50) return 'green';
-    if (available > 20) return 'orange';
-    return 'red';
-  };
-
   return (
-    <View style={{ flex: 1 }}>
-      {/* --- Carte principale --- */}
+    <View style={styles.container}>
+      {/* --- Carte --- */}
       <MapView
-        style={{ flex: 1 }}
+        style={styles.map}
         initialRegion={{
           latitude: 48.8566,
           longitude: 2.3522,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
+          latitudeDelta: 0.1,
+          longitudeDelta: 0.1,
         }}
       >
-        {filtered.map((p) => (
-          <Marker
-            key={p.id}
-            coordinate={{ latitude: p.lat, longitude: p.lon }}
-            pinColor={getMarkerColor(p.available)}
-            onPress={() => navigation.navigate('ParkingDetail', { parking: p })}
-          />
-        ))}
+        {filtered.map((p) =>
+          p.lat && p.lon ? (
+            <Marker
+              key={p.id}
+              coordinate={{ latitude: p.lat, longitude: p.lon }}
+              pinColor="#0000FF"
+              title={p.name}
+              description="Stationnement en ouvrage"
+              onPress={() =>
+                navigation.navigate('ParkingDetail', { parking: p })
+              }
+            />
+          ) : null
+        )}
       </MapView>
 
-      {/* --- Bandeau bas recherche + liste --- */}
+      {/* --- Bandeau liste/search semi-transparent au-dessus --- */}
       <View style={styles.bottomPanel}>
         <TextInput
-          placeholder="Recherche Parking"
+          placeholder="Recherche parking"
           value={search}
           onChangeText={setSearch}
           style={styles.searchInput}
           placeholderTextColor="#888"
         />
-
         <FlatList
-          data={filtered.slice(0, 5)} // limite à 5 résultats pour l'affichage
+          data={filtered.slice(0, 20)}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <TouchableOpacity
@@ -79,10 +81,8 @@ export default function ParkingMapScreen({ navigation }) {
                 navigation.navigate('ParkingDetail', { parking: item })
               }
             >
-              <Text style={styles.listName}>{item.name || 'Nom inconnu'}</Text>
-              <Text style={styles.listDistance}>
-                {item.available ?? 0} places libres
-              </Text>
+              <Text style={styles.listName}>{item.name}</Text>
+              <Text style={styles.listDistance}>Stationnement en ouvrage</Text>
             </TouchableOpacity>
           )}
         />
@@ -92,10 +92,15 @@ export default function ParkingMapScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  container: { flex: 1 },
+  map: {
+    flex: 1, 
+  },
   bottomPanel: {
     position: 'absolute',
     bottom: 0,
     width: '100%',
+    height: height * 0.35,
     backgroundColor: '#fff',
     padding: 16,
     borderTopLeftRadius: 20,

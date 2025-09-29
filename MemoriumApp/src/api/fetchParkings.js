@@ -38,6 +38,9 @@ export async function fetchParkings() {
         height_max: f.hauteur_max || f.hauteur_limite || null,
 
         // Services / accès / tarifs
+        access_hours: f.horaires || f.horaires_d_ouverture || '',
+        prices: f.tarifs || f.tarif_horaire || f.prix || null,
+        phone: f.telephone || null,
         website: f.site_web || f.url || null,
 
         // Géoloc

@@ -49,6 +49,7 @@ export default function ParkingMapScreen({ navigation }) {
       >
         {filtered.map((p) =>
           p.lat && p.lon ? (
+             <ion-icon name="car-outline">
             <Marker
             key={p.id}
             coordinate={{ latitude: p.lat, longitude: p.lon }}
@@ -62,6 +63,7 @@ export default function ParkingMapScreen({ navigation }) {
             <Ionicons name="car" size={28} color="blue"/>
             </Marker>
           ): null
+
         )}
       </MapView>
 

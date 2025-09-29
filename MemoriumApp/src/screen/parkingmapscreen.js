@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Ionicons } from '@expo/vector-icons'
 import {
   View,
   Text,
@@ -49,16 +50,18 @@ export default function ParkingMapScreen({ navigation }) {
         {filtered.map((p) =>
           p.lat && p.lon ? (
             <Marker
-              key={p.id}
-              coordinate={{ latitude: p.lat, longitude: p.lon }}
-              pinColor="#0000FF"
-              title={p.name}
-              description="Stationnement en ouvrage"
-              onPress={() =>
-                navigation.navigate('ParkingDetail', { parking: p })
-              }
-            />
-          ) : null
+            key={p.id}
+            coordinate={{ latitude: p.lat, longitude: p.lon }}
+            pinColor="#0000FF"
+            title={p.name}
+            description="Stationnement en ouvrage"
+            onPress={() =>
+              navigation.navigate('ParkingDetail', { parking: p })
+            }
+          >
+            <Ionicons name="car" size={28} color="blue"/>
+            </Marker>
+          ): null
         )}
       </MapView>
 

@@ -49,19 +49,18 @@ export default function ParkingMapScreen({ navigation }) {
       >
         {filtered.map((p) =>
           p.lat && p.lon ? (
-             <ion-icon name="car-outline">
-            <Marker
-            key={p.id}
-            coordinate={{ latitude: p.lat, longitude: p.lon }}
-            pinColor="#0000FF"
-            title={p.name}
-            description="Stationnement en ouvrage"
-            onPress={() =>
-              navigation.navigate('ParkingDetail', { parking: p })
-            }
-          >
+          <Marker
+          key={p.id}
+          coordinate={{ latitude: p.lat, longitude: p.lon }}
+          pinColor="#0000FF"
+          title={p.name}
+          description="Stationnement en ouvrage"
+          onPress={() =>
+            navigation.navigate('ParkingDetail', { parking: p })
+          }
+        >
             <Ionicons name="car" size={28} color="blue"/>
-            </Marker>
+          </Marker>
           ): null
 
         )}
